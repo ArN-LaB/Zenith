@@ -1,0 +1,33 @@
+name: Feature Request
+description: Suggest a new feature or improvement for VPN Tools for macOS
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What problem or limitation does this feature address?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How would you like to see this addressed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative approaches you have considered?
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        > **Note**: Test logic and CLI changes belong in [vpn-tools](https://github.com/ArN-Ld/vpn-tools).
+        > This project is the macOS frontend only.
