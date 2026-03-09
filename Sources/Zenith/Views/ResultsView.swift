@@ -48,27 +48,21 @@ struct ResultsTableView: View {
                 }
                 .width(min: 100, ideal: 140)
 
-                TableColumn("Ping", value: \.pingFormatted)
-                    .width(min: 50, ideal: 70)
-
-                TableColumn("MTR") { result in
-                    if result.mtrLatency > 0 {
-                        HStack(spacing: 3) {
-                            Text(String(format: "%.0f ms", result.mtrLatency))
-                                .font(.body.monospacedDigit())
-                            if result.mtrHops == 0 {
-                                Text("ping")
-                                    .font(.caption2)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.horizontal, 3).padding(.vertical, 1)
-                                    .background(RoundedRectangle(cornerRadius: 3).fill(Color.secondary.opacity(0.15)))
-                            }
+                TableColumn("Latency") { result in
+                    let latency = result.mtrLatency > 0 ? result.mtrLatency : result.ping
+                    HStack(spacing: 3) {
+                        Text(String(format: "%.0f ms", latency))
+                            .font(.body.monospacedDigit())
+                        if result.mtrLatency == 0 && result.ping > 0 {
+                            Text("ping")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .padding(.horizontal, 3).padding(.vertical, 1)
+                                .background(RoundedRectangle(cornerRadius: 3).fill(Color.secondary.opacity(0.15)))
                         }
-                    } else {
-                        Text("—").font(.body.monospacedDigit()).foregroundStyle(.secondary)
                     }
                 }
-                .width(min: 60, ideal: 85)
+                .width(min: 70, ideal: 90)
             }
             }
         }
@@ -149,8 +143,8 @@ struct StatsCardsView: View {
                     color: .blue
                 )
                 StatCard(
-                    title: "Avg Ping",
-                    value: String(format: "%.0f ms", vm.averagePing),
+                    title: "Avg Latency",
+                    value: String(format: "%.0f ms", vm.averageLatency),
                     subtitle: "latency",
                     icon: "antenna.radiowaves.left.and.right",
                     color: .orange

@@ -391,7 +391,7 @@ struct MenuBarView: View {
                         .foregroundStyle(.green.opacity(0.7))
                     Label(String(format: "%.1f Mbps", vm.averageUpload), systemImage: "arrow.up")
                         .foregroundStyle(.blue.opacity(0.7))
-                    Label(String(format: "%.0f ms", vm.averagePing), systemImage: "antenna.radiowaves.left.and.right")
+                    Label(String(format: "%.0f ms", vm.averageLatency), systemImage: "antenna.radiowaves.left.and.right")
                         .foregroundStyle(.orange.opacity(0.7))
                 }
                 .font(.caption2.monospacedDigit())

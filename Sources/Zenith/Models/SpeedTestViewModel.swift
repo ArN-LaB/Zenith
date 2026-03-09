@@ -111,9 +111,11 @@ final class SpeedTestViewModel: ObservableObject {
         return results.map(\.uploadSpeed).reduce(0, +) / Double(results.count)
     }
 
-    var averagePing: Double {
+    var averageLatency: Double {
         guard !results.isEmpty else { return 0 }
-        return results.map(\.ping).reduce(0, +) / Double(results.count)
+        // Prefer MTR latency when available, fall back to speedtest ping
+        let values = results.map { $0.mtrLatency > 0 ? $0.mtrLatency : $0.ping }
+        return values.reduce(0, +) / Double(results.count)
     }
 
     func startTest() {
@@ -254,12 +256,17 @@ final class SpeedTestViewModel: ObservableObject {
             viableTarget = status.target ?? viableTarget
             currentTestStartTime = nil
         case "connecting":
-            // If deferred reset is pending, apply it now
-            if let task = stepResetTask, !task.isCancelled {
-                task.cancel()
-                currentTestSteps = Self.makeTestSteps()
+            if isCalibrationMode {
+                // During calibration, connecting IS the calibration — advance to step 2
+                activateStep("calibrate")
+            } else {
+                // If deferred reset is pending, apply it now
+                if let task = stepResetTask, !task.isCancelled {
+                    task.cancel()
+                    currentTestSteps = Self.makeTestSteps()
+                }
+                activateStep("connect")
             }
-            activateStep("connect")
             state = .running(progress: currentServer)
         case "stabilizing":
             if isCalibrationMode {
