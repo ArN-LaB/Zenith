@@ -4,6 +4,7 @@ import SwiftUI
 struct VPNToolsApp: App {
     @StateObject private var speedTestVM = SpeedTestViewModel()
     @StateObject private var depManager = DependencyManager()
+    @StateObject private var updateChecker = UpdateChecker()
     @Environment(\.openWindow) private var openWindow
     @AppStorage("hidePreflightAtStartup") private var hidePreflightAtStartup = false
     @AppStorage("hasCompletedFirstPreflight") private var hasCompletedFirstPreflight = false
@@ -16,8 +17,14 @@ struct VPNToolsApp: App {
             )
                 .environmentObject(speedTestVM)
                 .environmentObject(depManager)
+                .environmentObject(updateChecker)
                 .task {
                     depManager.checkAll()
+                    // Silent update check 3 s after launch
+                    Task {
+                        try? await Task.sleep(for: .seconds(3))
+                        await updateChecker.check()
+                    }
                     // Always show on first launch; afterwards respect user preference
                     if !hasCompletedFirstPreflight || !hidePreflightAtStartup {
                         openWindow(id: "preflight")
@@ -35,6 +42,7 @@ struct VPNToolsApp: App {
             ContentView()
                 .environmentObject(speedTestVM)
                 .environmentObject(depManager)
+                .environmentObject(updateChecker)
                 .frame(minWidth: 700, minHeight: 433)
         }
         .defaultSize(width: 900, height: 556)

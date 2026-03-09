@@ -42,7 +42,7 @@ struct HeaderView: View {
             HStack(spacing: 16) {
                 Image(systemName: "star.fill")
                     .font(.title)
-                    .foregroundStyle(.yellow)
+                    .foregroundStyle(.primary)
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Mullvad Speed Test")

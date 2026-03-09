@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct AboutView: View {
+    @EnvironmentObject var updateChecker: UpdateChecker
+
     private var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     }
@@ -75,6 +77,11 @@ struct AboutView: View {
 
                 Divider()
 
+                // MARK: - Updates
+                updateRow
+
+                Divider()
+
                 // MARK: - License
                 VStack(spacing: 6) {
                     Text("MIT License — © 2026 ArN-Ld")
@@ -97,6 +104,52 @@ struct AboutView: View {
             .padding(28)
             .frame(maxWidth: .infinity)
         }
+    }
+
+    // MARK: - Update row
+
+    @ViewBuilder
+    private var updateRow: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 10) {
+                if updateChecker.isChecking {
+                    ProgressView().controlSize(.small)
+                    Text("Checking for updates\u{2026}")
+                        .font(.caption).foregroundStyle(.secondary)
+                    Spacer()
+                } else if updateChecker.updateAvailable, let v = updateChecker.latestVersion {
+                    Image(systemName: "arrow.down.circle.fill").foregroundStyle(.green)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Version \(v) available").font(.caption.bold())
+                        Text("Installed: \(appVersion)").font(.caption2).foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button("Download") {
+                        NSWorkspace.shared.open(
+                            URL(string: "https://github.com/ArN-Ld/Zenith/releases/latest")!
+                        )
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.small)
+                } else if let err = updateChecker.lastError {
+                    Image(systemName: "exclamationmark.triangle").foregroundStyle(.orange)
+                    Text(err).font(.caption2).foregroundStyle(.orange).lineLimit(1).truncationMode(.tail)
+                    Spacer()
+                    Button("Retry") { Task { await updateChecker.check(force: true) } }
+                        .font(.caption2).controlSize(.mini)
+                } else {
+                    Image(systemName: "checkmark.circle.fill").foregroundStyle(.secondary)
+                    Text("Version \(appVersion) — up to date")
+                        .font(.caption).foregroundStyle(.secondary)
+                    Spacer()
+                    Button("Check for updates") { Task { await updateChecker.check(force: true) } }
+                        .font(.caption2).controlSize(.mini)
+                }
+            }
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 8))
     }
 
     // MARK: - Helpers

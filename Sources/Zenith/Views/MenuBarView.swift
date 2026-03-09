@@ -5,6 +5,7 @@ import CoreLocation
 struct MenuBarView: View {
     @EnvironmentObject var vm: SpeedTestViewModel
     @EnvironmentObject var depManager: DependencyManager
+    @EnvironmentObject var updateChecker: UpdateChecker
     let openDashboard: () -> Void
 
     @State private var resolvedLat: Double?
@@ -22,7 +23,7 @@ struct MenuBarView: View {
             // Header
             HStack {
                 Image(systemName: "star.fill")
-                    .foregroundStyle(.yellow)
+                    .foregroundStyle(.primary)
                 Text("Zenith")
                     .font(.headline)
                 Spacer()
@@ -302,7 +303,13 @@ struct MenuBarView: View {
                     NotificationCenter.default.post(name: .openAboutTab, object: nil)
                     openDashboard()
                 }
-
+                if updateChecker.updateAvailable, let v = updateChecker.latestVersion {
+                    MenuBarButton(title: "Update \(v) available", icon: "arrow.down.circle.fill", color: .green) {
+                        NSWorkspace.shared.open(
+                            URL(string: "https://github.com/ArN-Ld/Zenith/releases/latest")!
+                        )
+                    }
+                }
                 MenuBarButton(title: "Quit", icon: "power", color: .secondary) {
                     NSApplication.shared.terminate(nil)
                 }

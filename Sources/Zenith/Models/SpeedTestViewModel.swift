@@ -213,10 +213,10 @@ final class SpeedTestViewModel: ObservableObject {
             availableContinents = status.continents ?? []
             state = .running(progress: "Calibrating connections")
         case "calibration_test":
-            currentPhaseName = "Calibration"
+            currentPhaseName = ""             // steps already convey the phase
             currentTestStartTime = Date()
             currentServer = status.hostname ?? ""
-            currentServerContinent = status.continent ?? ""
+            currentServerContinent = ""       // calibration server continent is noise
             stepResetTask?.cancel()
             currentTestSteps = Self.makeCalibrationSteps()
             activateStep("connect")
