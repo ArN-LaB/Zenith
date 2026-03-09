@@ -66,7 +66,14 @@ No separate Python environment needed.
 
 ### Homebrew Cask
 
-> A Homebrew cask formula will be published when the first signed release is tagged.
+```bash
+brew tap ArN-Ld/tap
+brew install --cask zenith
+```
+
+> Note: the app is currently **unsigned**. macOS will show a Gatekeeper warning on first launch.
+> Right-click (or Control-click) → **Open** to bypass it once.
+> A notarized build will follow when a developer certificate is available.
 
 ---
 
