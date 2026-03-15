@@ -35,13 +35,15 @@ The name comes from astronomy: the **zenith** is the highest point in the sky â€
 
 ### mtr note (Homebrew)
 
-> **Upstream bug:** Homebrew's `mtr` formula does not set the required SUID bit on `mtr-packet` after installation.
-> This is a known issue tracked at [homebrew-core#271391](https://github.com/Homebrew/homebrew-core/issues/271391).
-> The workaround below remains necessary until the formula is fixed.
+`mtr` requires raw sockets, which need root privileges. When installed via bottle
+(`brew install mtr`), `mtr-packet` has no SUID bit â€” `sudo mtr` works as expected.
 
-`brew install mtr` may leave `mtr-packet` with incorrect SUID ownership (owned by the
-installing user instead of root). The app automatically uses ping fallback in that case.
-To fix MTR for full hop tracking, run once:
+When built from source (`brew install --build-from-source mtr`), the upstream
+[Makefile](https://github.com/traviscross/mtr/blob/v0.96/Makefile.am#L43-L45) sets a
+SUID bit on `mtr-packet` owned by the build user (not root), which **breaks** both
+`mtr` and `sudo mtr`. The app automatically uses ping fallback in that case.
+
+To fix MTR after a source build:
 
 ```bash
 sudo chown root:wheel $(brew --prefix)/Cellar/mtr/0.96/sbin/mtr-packet
