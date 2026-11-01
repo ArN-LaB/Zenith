@@ -11,8 +11,8 @@ Les sources Swift, le build et les archives publics sont inchangés.
 macOS 14+, Swift 5.9+/Xcode Command Line Tools et Python avec pip et filtres tarfile
 sécurisés (3.10.12+, 3.11.4+ ou 3.12+). Le composant standard library vit dans
 `ArN-LaB/homebrew-tap/developer-tools/macos-local-installer`.
-Sa référence prévue est `local-installer-v0.1.1` : publication requise avant les
-intégrations clientes, non annoncée comme disponible pendant la revue.
+Sa référence publiée est `local-installer-v0.1.1`. Dans ce checkout du composant :
+`git checkout local-installer-v0.1.1`.
 
 La dépendance `ArN-LaB/vpn-tools` est épinglée au commit publié de `main`
 **`dbaeffb7e4adb5dccf5ae4fae9d3d763e9d4bcad`**. Le build refuse un autre HEAD ou un
@@ -91,6 +91,6 @@ Mullvad, ni les paramètres réseau. La cohabitation protège les bundles du cas
 build local ; elle ne promet pas une isolation complète des données d'exécution.
 
 Le [contrat commun](https://github.com/ArN-LaB/homebrew-tap/tree/main/developer-tools/macos-local-installer)
-détaille les garanties et limites. Le guide sera disponible après intégration sur main ;
-le manifeste épingle la référence versionnée. Une signature ad hoc et un reçu ne
+détaille les garanties et limites. Le guide est disponible sur main ; le manifeste
+épingle la référence versionnée et le SHA-256 du moteur. Une signature ad hoc et un reçu ne
 constituent pas une notarisation Apple. Les lancements réels restent une recette séparée.
