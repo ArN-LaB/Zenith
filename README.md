@@ -5,6 +5,7 @@
 ![macOS 14+](https://img.shields.io/badge/macOS-14%2B-black?logo=apple)
 ![Swift 5.9+](https://img.shields.io/badge/Swift-5.9%2B-orange?logo=swift)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/arn_lab)
 
 **Zenith** is a native macOS menu bar app that ranks [Mullvad VPN](https://mullvad.net) servers by latency and download speed. It runs [**vpn-tools**](https://github.com/ArN-LaB/vpn-tools) as a bundled subprocess and surfaces the results in a clean SwiftUI interface.
 
