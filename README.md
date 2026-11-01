@@ -47,6 +47,18 @@ Install via `brew install mtr` and Zenith will use it for latency measurements.
 
 Requires Xcode Command Line Tools / Swift 5.9+.
 
+For your own Mac, the [shared local installer](docs/LOCAL_MACOS_INSTALL.md) provides
+an isolated **Zenith Local.app** build, provenance checks, interactive installation and rollback:
+
+```bash
+./install-local.command --dry-run
+./install-local.command
+```
+
+The local edition has a distinct bundle identifier and leaves the Homebrew cask intact.
+This developer component and the pinned vpn-tools source must first be checked out as documented; it is not embedded
+in public downloads and does not change Gatekeeper settings. The direct build remains:
+
 ```bash
 git clone https://github.com/ArN-LaB/Zenith.git
 cd Zenith

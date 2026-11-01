@@ -1,0 +1,23 @@
+{
+  "repository": "ArN-LaB/Zenith",
+  "bundle_name": "Zenith Local.app",
+  "bundle_id": "com.arn-lab.zenith.local",
+  "build": [
+    "bash",
+    "build_app.sh"
+  ],
+  "output": "Zenith.app",
+  "source_dependencies": [
+    {
+      "env": "VPN_TOOLS_SRC",
+      "default": "~/Library/Application Support/ArN-LaB Local Installer/sources/vpn-tools-dbaeffb7",
+      "repository": "ArN-LaB/vpn-tools",
+      "commit": "dbaeffb7e4adb5dccf5ae4fae9d3d763e9d4bcad"
+    }
+  ],
+  "component_version": "0.1.1",
+  "component_repository": "ArN-LaB/homebrew-tap",
+  "component_ref": "local-installer-v0.1.1",
+  "component_sha256": "d76acb7927818797fa05de064fd8bcb30eb21bfc34aceed37e5605e23d3097c2",
+  "build_bundle_id": "com.arn-lab.zenith"
+}
