@@ -4,6 +4,14 @@ All notable changes to Zenith are documented in this file.
 
 ---
 
+## [Unreleased]
+
+### Documentation
+- Add an optional Buy Me a Coffee link: `.github/FUNDING.yml` (GitHub "Sponsor"
+  button) and a badge in the README.
+- `LICENSE` now holds the standard MIT text only, so GitHub detects the licence;
+  the vpn-tools attribution moves unchanged to `NOTICE`.
+
 ## [1.0.0] — 2026-03-09
 
 > First public release, covering 38 development phases.

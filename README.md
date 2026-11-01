@@ -160,4 +160,4 @@ with a `> Prérequis vpn-tools :` note.
 ## License
 
 MIT — see [LICENSE](LICENSE).
-Bundles [vpn-tools](https://github.com/ArN-LaB/vpn-tools) — MIT License © 2025 Valera.
+Bundles [vpn-tools](https://github.com/ArN-LaB/vpn-tools) — MIT License © 2025 Valera. See [NOTICE](NOTICE).

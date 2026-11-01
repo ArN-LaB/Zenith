@@ -1,0 +1,8 @@
+This project bundles source code from vpn-tools
+(https://github.com/ArN-LaB/vpn-tools), itself a fork of the original
+vpn-tools by Valera. Both are distributed under the MIT License:
+
+    MIT License — Copyright (c) 2025 Valera
+
+The full text of the upstream MIT License is available at
+https://github.com/ArN-LaB/vpn-tools/blob/main/LICENSE
